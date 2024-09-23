@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float speed = .1f;
+    public AudioSource playerMovementAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +19,17 @@ public class PlayerMovement : MonoBehaviour
         float xposition = Input.GetAxis("Horizontal");
         float yposition = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(xposition, yposition, 0);
+        Vector3 movement = new Vector2(xposition,0);
 
         transform.Translate(movement * speed * Time.deltaTime);
+
+        if(xposition !=0 || yposition !=0)
+        {
+            if(!playerMovementAudio.isPlaying) 
+                playerMovementAudio.Play();
+        } else 
+        {
+            playerMovementAudio.Stop();
+        }
     }
 }
